@@ -1,15 +1,67 @@
 #include "pch.h"
 
-void Gra::Gra2Graczy()
+Gra::Gra(Plansza *plansza, Gracz* gracz1, Gracz* gracz2, Gracz* gracz3)
+	: plansza(plansza), kolej(0)
 {
-	int kolej = 0;
+	if (gracz1)
+		gracze.push_back(gracz1);
+	if (gracz2)
+		gracze.push_back(gracz2);
+	if (gracz3)
+		gracze.push_back(gracz3);
+}
+
+void Gra::GraTurami()
+{
+	kolej = 0;
 	while (!Koniec())
 	{
-		Gracz* gracz = gracze[kolej];
-		Akcja akcja;
+		Gracz *gracz = gracze[kolej];
+		Akcja *akcja;
 		do { akcja = gracz->Decyzja(plansza); } 
-		while (!Dozwolona(akcja, gracz));
-		plansza.Wykonaj(akcja);
-		kolej = kolej ? 0 : 1;
+		while (!Dozwolona(akcja));
+		plansza->Wykonaj(akcja);
+		kolej++;
+		if (kolej == gracze.size())
+			kolej = 0;
 	}
 }
+
+void DecyzjeGracza(Gracz *gracz, Plansza *plansza, 
+	Concurrency::concurrent_queue<Akcja*> *kolejka)
+{
+	Akcja* akcja;
+	while (true) 
+		akcja = gracz->Decyzja(plansza); 
+	kolejka->push(akcja);
+}
+
+void Gra::StartWatkuGracza(int index)
+{
+	std::thread *t = new std::thread(DecyzjeGracza, gracze[index], plansza, &kolejka);
+	watki.push_back(t);
+}
+
+void Gra::StopWatkuGracza(int index)
+{
+	// czekamy na zakoñczenie
+	delete watki[index];
+}
+
+void Gra::GraNiezaleznie()
+{
+	for (int i = 0; i < gracze.size(); i++)
+		StartWatkuGracza(i);
+
+	while (!Koniec())
+	{
+		Akcja* akcja;
+		while (!kolejka.try_pop(akcja)) ; // uwaga! aktywne czekanie
+		if (Dozwolona(akcja))
+			plansza->Wykonaj(akcja);
+	}
+
+	for (int i = 0; i < gracze.size(); i++)
+		StopWatkuGracza(i);
+}
+

@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(VC_SourcePath)\..\Motor;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Motor;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,7 +130,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Szachista.cpp" />
+    <ClCompile Include="Ruch.cpp" />
+    <ClCompile Include="SzachistaKon.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Szachownica.cpp" />
     <ClCompile Include="Szachy.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +142,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Szachista.h" />
+    <ClInclude Include="Ruch.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SzachistaKon.h" />
+    <ClInclude Include="Szachownica.h" />
+    <ClInclude Include="Szachy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

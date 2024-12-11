@@ -1,19 +1,33 @@
 #pragma once
+#include <vector>
+#include <thread>
+#include <concurrent_queue.h>
+
 class Gra
 {
-	Plansza &plansza;
-	Gracz **gracze; 
-public:
-	Gra(Plansza &plansza, Gracz* gracz1, Gracz* gracz2)
-		: plansza(plansza)
-	{
-		gracze = new Gracz*[2];
-		gracze[0] = gracz1;
-		gracze[1] = gracz2;
-	}
-	virtual bool Koniec() = 0;
-	virtual bool Dozwolona(Akcja akcja, Gracz* gracz) = 0;
+	Plansza *plansza;
+	std::vector<Gracz *> gracze;
 
-	void Gra2Graczy();
+public:
+	Gra(Plansza *plansza, Gracz* gracz1, Gracz* gracz2 = 0, Gracz* gracz3 = 0);
+
+	virtual bool Koniec() = 0;
+	virtual bool Dozwolona(Akcja *akcja) = 0;
+
+	/* gracze graj¹ po kolei */
+private:
+	int kolej;
+
+public:
+	void GraTurami();
+
+	/* gracze graj¹ niezale¿nie */
+private:
+	std::vector<std::thread *> watki;
+	Concurrency::concurrent_queue<Akcja *> kolejka;
+	void StartWatkuGracza(int index);
+	void StopWatkuGracza(int index);
+public:
+	void GraNiezaleznie();
 };
 

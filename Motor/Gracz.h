@@ -4,8 +4,7 @@
 
 class Gracz
 {
-	Plansza& plansza;
 public:
-	virtual Akcja Decyzja(Plansza& plansza) = 0;
+	virtual Akcja *Decyzja(Plansza *plansza) = 0;
 };
 

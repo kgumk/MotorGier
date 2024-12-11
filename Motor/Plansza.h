@@ -5,6 +5,6 @@ class Akcja;
 class Plansza
 {
 public:
-	virtual void Wykonaj(Akcja akcja) = 0;
+	virtual void Wykonaj(Akcja *akcja) = 0;
 };
 
