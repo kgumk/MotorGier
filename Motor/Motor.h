@@ -6,4 +6,5 @@
 #include "ObiektNaPlanszy.h"
 #include "Akcja.h"
 #include "Gracz.h"
+#include "Wizualizator.h"
 #include "Gra.h"

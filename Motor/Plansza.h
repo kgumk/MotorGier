@@ -2,6 +2,12 @@
 
 class Akcja;
 
+struct Pozycja
+{
+	int rzad;
+	int kolumna;
+};
+
 class Plansza
 {
 public:

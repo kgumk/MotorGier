@@ -7,9 +7,11 @@ class Gra
 {
 	Plansza *plansza;
 	std::vector<Gracz *> gracze;
+	Wizualizator* wizualizator;
 
 public:
-	Gra(Plansza *plansza, Gracz* gracz1, Gracz* gracz2 = 0, Gracz* gracz3 = 0);
+	Gra(Plansza *plansza, Wizualizator *wizualizator, 
+		Gracz* gracz1, Gracz* gracz2 = 0, Gracz* gracz3 = 0);
 
 	virtual bool Koniec() = 0;
 	virtual bool Dozwolona(Akcja *akcja) = 0;

@@ -146,6 +146,7 @@
     <ClInclude Include="ObiektNaPlanszy.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Plansza.h" />
+    <ClInclude Include="Wizualizator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Akcja.cpp" />
@@ -160,6 +161,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Plansza.cpp" />
+    <ClCompile Include="Wizualizator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

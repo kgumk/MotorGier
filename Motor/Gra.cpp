@@ -1,7 +1,8 @@
 #include "pch.h"
 
-Gra::Gra(Plansza *plansza, Gracz* gracz1, Gracz* gracz2, Gracz* gracz3)
-	: plansza(plansza), kolej(0)
+Gra::Gra(Plansza *plansza, Wizualizator* wizualizator,
+	Gracz* gracz1, Gracz* gracz2, Gracz* gracz3)
+	: plansza(plansza), wizualizator(wizualizator), kolej(0)
 {
 	if (gracz1)
 		gracze.push_back(gracz1);
@@ -14,6 +15,8 @@ Gra::Gra(Plansza *plansza, Gracz* gracz1, Gracz* gracz2, Gracz* gracz3)
 void Gra::GraTurami()
 {
 	kolej = 0;
+	if (wizualizator)
+		wizualizator->Aktualizuj(plansza);
 	while (!Koniec())
 	{
 		Gracz *gracz = gracze[kolej];
@@ -21,6 +24,8 @@ void Gra::GraTurami()
 		do { akcja = gracz->Decyzja(plansza); } 
 		while (!Dozwolona(akcja));
 		plansza->Wykonaj(akcja);
+		if (wizualizator)
+			wizualizator->Aktualizuj(plansza);
 		kolej++;
 		if (kolej == gracze.size())
 			kolej = 0;
@@ -53,12 +58,19 @@ void Gra::GraNiezaleznie()
 	for (int i = 0; i < gracze.size(); i++)
 		StartWatkuGracza(i);
 
+	if (wizualizator)
+		wizualizator->Aktualizuj(plansza);
+
 	while (!Koniec())
 	{
 		Akcja* akcja;
-		while (!kolejka.try_pop(akcja)) ; // uwaga! aktywne czekanie
+		while (!kolejka.try_pop(akcja)); // uwaga! aktywne czekanie
 		if (Dozwolona(akcja))
+		{
 			plansza->Wykonaj(akcja);
+			if (wizualizator)
+				wizualizator->Aktualizuj(plansza);
+		}
 	}
 
 	for (int i = 0; i < gracze.size(); i++)

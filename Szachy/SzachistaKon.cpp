@@ -2,8 +2,8 @@
 
 Akcja* SzachistaKon::Decyzja(Plansza* plansza)
 {
-	cout << "Twój ruch: ";
+	cout << "Twoj ruch: ";
 	Ruch *ruch = new Ruch();
-	cin >> ruch;
+	cin >> *ruch;
 	return ruch;
 }

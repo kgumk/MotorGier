@@ -8,4 +8,5 @@ using namespace std;
 #include "Ruch.h"
 #include "Szachownica.h"
 #include "SzachistaKon.h"
+#include "WizualizatorSzachow.h"
 #include "Szachy.h"
