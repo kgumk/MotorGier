@@ -3,7 +3,7 @@
 Akcja* GraczKon::Decyzja(Plansza* plansza)
 {
 	Kierunek* ruch = new Kierunek();
-	char z, poprz;
+	int z = -1, poprz;
 	while (_kbhit())
 		z = _getch();
 
@@ -17,5 +17,6 @@ Akcja* GraczKon::Decyzja(Plansza* plansza)
 			return ruch;
 		}
 	}
+	delete ruch;
 	return 0;
 }

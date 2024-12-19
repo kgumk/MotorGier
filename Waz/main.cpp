@@ -3,7 +3,7 @@
 int main()
 {
 	GraczKon gracz1;
-	PlanszaWeza plansza;
+	PlanszaWeza plansza(80, 20);
 	WizualizatorWeza wizualizator;
 	Waz gra(&plansza, &wizualizator, &gracz1);
 	gra.GraNiezaleznie();

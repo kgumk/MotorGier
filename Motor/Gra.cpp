@@ -36,9 +36,11 @@ void DecyzjeGracza(Gracz *gracz, Plansza *plansza,
 	Concurrency::concurrent_queue<Akcja*> *kolejka)
 {
 	Akcja* akcja;
-	while (true) 
-		akcja = gracz->Decyzja(plansza); 
-	kolejka->push(akcja);
+	while (true)
+	{
+		akcja = gracz->Decyzja(plansza);
+		kolejka->push(akcja);
+	}
 }
 
 void Gra::StartWatkuGracza(int index)
